@@ -2,24 +2,28 @@ import React from "react"
 import Logo from '../image/logo.png'
 import CartWidget from "./CartWidget"
 import "../styles/NavBar.css"
+import { Link } from "react-router-dom"
 
 const NavBar = () => {
 
     return (
-        <nav className="nav flexcenter">
-            <div className="nav-container-button">
-                <div className="logo-container">
-                    <h3 className="brand">Black Cave</h3>
-                    <img className="logo" src={Logo} alt="Logo Marca" />
-                </div>
+        <nav className="nav">
 
-                <button className="nav-button">Home</button>
-                <button className="nav-button">Catalogo</button>
-                <button className="nav-button">Accesorios</button>  
-                <button className="nav-button">Contacto</button>
+            <Link className="logo-container" to="/">
+                <h3 className="brand">Black Cave</h3>
+                <img className="logo" src={Logo} alt="Logo Marca" />
+            </Link>
+
+            <div className="nav-container-button">
+                <Link className="nav-button" to="/category/Tintos">Tintos</Link>
+                <Link className="nav-button" to="/category/Blancos">Blancos</Link>
+                <Link className="nav-button" to="/category/Espumantes">Espumantes</Link>
+            </div>
+            <div className="cart">
                 <CartWidget />
             </div>
-        </nav>
+
+        </nav >
     )
 }
 export default NavBar;
