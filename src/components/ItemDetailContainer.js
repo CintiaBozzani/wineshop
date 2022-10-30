@@ -9,8 +9,8 @@ export default function ItemDetailContainer({ greeting, dataMock }) {
   const { id } = useParams()
 
   async function getDetail() {
-    let idNumber =  parseInt(id)
-    let producto = await dataMock?.filter(producto => producto.id === idNumber)   
+   
+    let producto = await dataMock?.filter(producto => producto.id === id)   
     setProducto(...producto)
   }
 
