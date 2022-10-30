@@ -4,6 +4,7 @@ import CartWidget from "./CartWidget"
 import "../styles/NavBar.css"
 import { Link } from "react-router-dom"
 
+
 const NavBar = () => {
 
     return (
@@ -15,12 +16,14 @@ const NavBar = () => {
             </Link>
 
             <div className="nav-container-button">
-                <Link className="nav-button" to="/category/Tintos">Tintos</Link>
-                <Link className="nav-button" to="/category/Blancos">Blancos</Link>
-                <Link className="nav-button" to="/category/Espumantes">Espumantes</Link>
+                <Link className="nav-button" to="/category/Tintos" >Tintos</Link>
+                <Link className="nav-button" to="/category/Blancos" >Blancos</Link>
+                <Link className="nav-button" to="/category/Espumantes" >Espumantes</Link>
             </div>
             <div className="cart">
+                <Link to="/cart">
                 <CartWidget />
+                </Link>
             </div>
 
         </nav >

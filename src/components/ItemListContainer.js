@@ -1,37 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../styles/Products.css"
-import data from "./data";
 import Product from "./Product";
 import { useParams } from "react-router-dom";
+import { CategoryContext} from '../context/CategoryContext';
 
-
-function ItemListContainer({ greeting }) {
-    const [productos, setProductos] = useState(data)
+function ItemListContainer({ greeting, dataMock }) {
+    
+    const [productos, setProductos] = useState()
     const { id } = useParams();
+    const ctx = useContext(CategoryContext)
 
+    const categoryAssign =()=>{
+        if (id !== undefined){
+        let fixCategory = id.substring(0,id.length -1)          
+        let categoria = dataMock?.filter(producto => producto.categoria === fixCategory)
+        setProductos(categoria)
+        ctx.setCategory(id)
+        }else{
+            setProductos(dataMock)
+        }
+    }
+    
     useEffect(() => {
-        if (id === "Tintos") {
-            const tintos = data.filter(producto => producto.categoria == "Tinto")
-            setProductos(tintos)
-        }
-        else if (id === "Blancos") {
-            const blancos = data.filter(producto => producto.categoria == "Blanco")
-            setProductos(blancos)
-        }
-        else if (id === "Espumantes") {
-            const espumantes = data.filter(producto => producto.categoria == "Espumante")
-            setProductos(espumantes)
-        }
-        else {
-            setProductos(data)
-        }
-    }, [id])
+      categoryAssign()
+        // eslint-disable-next-line
+    },[id])
 
     return (
         <div >
             <h1>{greeting}</h1>
             <div className="products-container">
-                {productos.map((product, index) =>
+                {productos?.map((product, index) =>
                     <Product product={product} key={index} />)}
             </div>
         </div>
