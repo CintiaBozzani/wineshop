@@ -18,9 +18,8 @@ function App() {
   const contextCategory = useContext(CategoryContext)
 
   const firebaseConfig = {
-    apiKey: "AIzaSyD5xzF2m0EokSkU6g7FNPQQceXb1nRMODo",
+    apiKey: "",
     authDomain: "wineshop-blackcabe.firebaseapp.com",
-    //databaseURL: "https://wineshop-blackcabe-default-rtdb.firebaseio.com",
     projectId: "wineshop-blackcabe",
     storageBucket: "wineshop-blackcabe.appspot.com",
     messagingSenderId: "533829335597",
