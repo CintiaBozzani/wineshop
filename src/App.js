@@ -4,14 +4,30 @@ import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
-import  CartContextProvider  from './context/CartContext';
-import {CategoryContext}  from './context/CategoryContext';
+import CartContextProvider from './context/CartContext';
+import { CategoryContext } from './context/CategoryContext';
 import axios from "axios";
 import ItemCartContainer from './components/CartContainer';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 
 function App() {
   const [dataMock, setDataMock] = useState()
-  const contextCategory= useContext(CategoryContext)
+  const contextCategory = useContext(CategoryContext)
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5xzF2m0EokSkU6g7FNPQQceXb1nRMODo",
+    authDomain: "wineshop-blackcabe.firebaseapp.com",
+    projectId: "wineshop-blackcabe",
+    storageBucket: "wineshop-blackcabe.appspot.com",
+    messagingSenderId: "533829335597",
+    appId: "1:533829335597:web:f579693529f10dd15fd6a4",
+    measurementId: "G-H7DMC2NDWH"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 
   const getData = async () => {
     const response = await axios.get("/mock/mock-data.json")
@@ -22,18 +38,17 @@ function App() {
     getData()
   }, [])
 
-
   return (
     <div className="App">
       <BrowserRouter>
-        <CartContextProvider>        
+        <CartContextProvider>
           <NavBar />
           {dataMock && <Routes>
             <Route path="/" element={<ItemListContainer greeting="Bienvenido a Black Cave Wine Shop" dataMock={dataMock} />} />
-            <Route path="/category/:id" element={<ItemListContainer greeting={"Encuntra los mejores vinos " + contextCategory?.category } dataMock={dataMock} />} />
+            <Route path="/category/:id" element={<ItemListContainer greeting={"Encuntra los mejores vinos " + contextCategory?.category} dataMock={dataMock} />} />
             <Route path="/item/:id" element={<ItemDetailContainer greeting="Detalle de producto" dataMock={dataMock} />} />
-            <Route path="/cart" element={<ItemCartContainer greeting="Bienvenido a tu carrito"/>} />
-          </Routes>}        
+            <Route path="/cart" element={<ItemCartContainer greeting="Bienvenido a tu carrito" />} />
+          </Routes>}
         </CartContextProvider>
       </BrowserRouter>
     </div>
